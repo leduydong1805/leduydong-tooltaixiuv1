@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phân Tích Tài Xỉu</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <!-- Firebase SDK -->
+    
+    
+    
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --success-color: #1cc88a;
+            --danger-color: #e74a3b;
+            --dark-color: #5a5c69;
+            --light-color: #f8f9fc;
+            --card-border-radius: 15px;
+            --primary-gradient: linear-gradient(135deg, #6e8efb 0%, #a777e3 100%);
+            --red-gradient: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+        }
+
+        body {
+            background-color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            min-height: 100vh;
+            padding: 20px 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+        }
+
+        .main-card {
+            border-radius: var(--card-border-radius);
+            box-shadow: 0 0.15rem 1.75rem rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            margin-bottom: 1rem;
+            border: 1px solid #e3e6f0;
+            background-color: white;
+        }
+
+        .main-card .card-header {
+            background: var(--primary-gradient);
+            padding: 1.5rem;
+            border-bottom: none;
+            text-align: center;
+        }
+
+        .main-card .card-header h1 {
+            color: white;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .main-card .card-header p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0;
+            font-size: 1.1rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Marquee banner */
+        .marquee-container {
+            background: var(--red-gradient);
+            color: white;
+            padding: 8px 0;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);
+        }
+
+        .marquee {
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+            padding-left: 100%;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .rainbow-text {
+            animation: rainbow 8s linear infinite;
+            font-weight: bold;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        @keyframes rainbow {
+            0% { color: #ff416c; }
+            14% { color: #ff9d2b; }
+            28% { color: #ffcd2b; }
+            42% { color: #4eff2b; }
+            56% { color: #2bfff3; }
+            70% { color: #2b7fff; }
+            84% { color: #912bff; }
+            100% { color: #ff416c; }
+        }
+
+        /* Navigation and tabs */
+        .nav-wrapper {
+            position: relative;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-bottom: 1px solid #e3e6f0;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: nowrap;
+            width: max-content;
+            min-width: 100%;
+            border-bottom: none;
+        }
+
+        .nav-tabs .nav-link {
+            white-space: nowrap;
+            margin-right: 4px;
+            border: 1px solid transparent;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            transition: all 0.3s ease;
+        }
+
+        .nav-tabs .nav-link:hover {
+            border-color: #e3e6f0 #e3e6f0 #e3e6f0;
+            color: var(--primary-color);
+        }
+
+        .nav-tabs .nav-link.active {
+            color: var(--primary-color);
+            background-color: #fff;
+            border-color: #e3e6f0 #e3e6f0 #fff;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        /* Form controls with improved styling */
+        .form-control {
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            border: 1px solid #d1d3e2;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #a3bffa;
+            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+        }
+
+        /* Buttons with enhanced effects */
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 1.2rem;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            background-color: #4262c5;
+            border-color: #4262c5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(78, 115, 223, 0.20);
+        }
+
+        .btn-primary:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-primary:hover:before {
+            left: 100%;
+        }
+
+        .btn-outline-danger {
+            color: var(--danger-color);
+            border-color: var(--danger-color);
+            border-radius: 10px;
+        }
+
+        .btn-outline-danger:hover {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        /* Card and content styling */
+        .alert {
+            border-radius: 10px;
+            border-left: 4px solid;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-info {
+            background-color: rgba(78, 115, 223, 0.1);
+            border-left-color: var(--primary-color);
+            color: #3a3b45;
+        }
+
+        /* Result card with improved animations */
+        .result-card {
+            border-radius: 12px;
+            box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.12);
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            background-color: white;
+            border: 1px solid #e3e6f0;
+            overflow: hidden;
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
+        }
+
+        .badge {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+
+        .bg-success {
+            background-color: var(--success-color) !important;
+        }
+
+        .bg-danger {
+            background-color: var(--danger-color) !important;
+        }
+
+        /* Enhanced progress bars */
+        .progress-container {
+            margin-top: 10px;
+        }
+
+        .progress {
+            height: 30px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+            transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+            white-space: nowrap;
+            font-size: 0.9rem;
+            background-size: 20px 20px;
+            background-image: linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.15) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.15) 50%,
+                rgba(255, 255, 255, 0.15) 75%,
+                transparent 75%,
+                transparent
+            );
+        }
+
+        .progress-bar-tai {
+            background-color: var(--success-color);
+            animation: progress-bar-stripes 1s linear infinite;
+        }
+
+        .progress-bar-xiu {
+            background-color: var(--danger-color);
+            animation: progress-bar-stripes 1s linear infinite;
+        }
+
+        @keyframes progress-bar-stripes {
+            0% { background-position: 40px 0; }
+            100% { background-position: 0 0; }
+        }
+
+        /* History section with scroll enhancements */
+        .history-list {
+            max-height: 400px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #c1c3c5 #f1f1f1;
+            padding-right: 5px;
+            border-radius: 10px;
+        }
+
+        .history-item {
+            border-radius: 8px;
+            margin-bottom: 10px;
+            padding: 12px 15px;
+            border-left: 4px solid transparent;
+            background-color: #f8f9fc;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .history-item:hover {
+            transform: translateX(5px);
+            background-color: #eaecf4;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .history-item.tai {
+            border-left-color: var(--success-color);
+        }
+
+        .history-item.xiu {
+            border-left-color: var(--danger-color);
+        }
+
+        /* Enhanced loading animations */
+        .loading-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        .spinner-border {
+            width: 3.5rem;
+            height: 3.5rem;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .spinner-overlay {
+            position: absolute;
+            font-size: 1.2rem;
+            color: white;
+            background: var(--primary-color);
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            right: -5px;
+            top: -5px;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Advanced animation effects */
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(78, 115, 223, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(78, 115, 223, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(78, 115, 223, 0); }
+        }
+
+        .analyzing {
+            animation: analyzing 1.5s ease-in-out;
+        }
+
+        @keyframes analyzing {
+            0% { transform: scale(0.95); opacity: 0; }
+            50% { transform: scale(1.02); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Toast notifications with improved styling */
+        .toast-container {
+            z-index: 1050;
+        }
+
+        .toast {
+            border-radius: 8px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+
+        /* Custom scrollbar for better UX */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c3c5;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a1a3a5;
+        }
+
+        /* Code display styling */
+        .code-display {
+            background-color: #f8f9fc;
+            border-radius: 10px;
+            border: 1px solid #e3e6f0;
+            position: relative;
+        }
+        
+        .code-text {
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+        
+        /* Contact section */
+        .contact-section {
+            background-color: #f8f9fc;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid #e3e6f0;
+        }
+
+        .contact-item {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .card-title, .card-text {
+                text-align: center;
+            }
+            
+            #result-value {
+                text-align: center;
+                margin-bottom: 1.5rem;
+            }
+
+            .contact-section .row > div {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Footer */
+        .card-footer {
+            background-color: #f8f9fc;
+            border-top: 1px solid #e3e6f0;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Modals đăng nhập và đăng ký -->
+    <!-- Modal Đăng nhập -->
+    
+    </div>
+
+    <!-- Modal Đăng ký -->
+    
+    </div>
+
+    <!-- Modal trang quản trị (Admin) -->
+    
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Thanh trạng thái người dùng và nút đăng nhập/đăng xuất -->
+        
+            <div class="d-none" id="userLoggedIn">
+                <span class="me-2" id="welcomeMessage">Xin chào, <span id="userDisplayName">Người dùng</span>!</span>
+                <button class="btn btn-outline-danger me-2" id="logoutBtn"><i class="fas fa-sign-out-alt me-1"></i>Đăng Xuất</button>
+                <button class="btn btn-primary d-none" id="adminBtn"><i class="fas fa-user-shield me-1"></i>Quản Trị</button>
+            </div>
+        </div>
+        
+        <!-- Thông báo cho người dùng -->
+        
+        
+        
+        
+        
+        
+        <!-- Marquee Banner with Colorful Text -->
+        <div class="marquee-container mb-3">
+            <div class="marquee">
+                <div class="marquee-content">
+                    <span class="rainbow-text">
+                        🎲 PHÂN TÍCH TÀI XỈU LÊ DUY ĐÔNG 🎲 PHÂN TÍCH MÃ MD5 VÀ MÃ # 🎲 XEM TỶ LỆ PHẦN TRĂM 🎲 THỐNG KÊ LỊCH SỬ 🎲 CÔNG CỤ GIÁ RẺ 🎲 PHÂN TÍCH TÀI XỈU CHÍNH XÁC 90% 🎲
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Thông báo khi chưa đăng nhập -->
+        
+        
+        <!-- Script cho nút đăng nhập/đăng ký trong thông báo -->
+        
+
+        <div class="main-card shadow">
+            <div class="card-header">
+                <h1 class="display-5">
+                    <i class="fas fa-dice me-2 animate__animated animate__bounce"></i>Phân Tích Tài Xỉu
+                </h1>
+                <p class="lead">Phân tích mã MD5 và mã # để tính toán kết quả tài xỉu</p>
+            </div>
+
+            <div class="card-body">
+                <!-- Giới thiệu về Bot -->
+                <div class="alert alert-info mb-4" role="alert">
+                    <h4 class="alert-heading"><i class="fas fa-info-circle me-2"></i>Giới thiệu</h4>
+                    <p>Bot phân tích này giúp bạn xác định kết quả tài xỉu dựa trên mã MD5 hoặc mã #. Với thuật toán phân tích chính xác, bạn có thể dễ dàng xem kết quả và tỷ lệ phần trăm.</p>
+                    <hr>
+                    <p class="mb-0">Chọn tab và nhập mã để bắt đầu phân tích!</p>
+                </div>
+
+                <!-- Tabs with Horizontal Scroll -->
+                <div class="nav-wrapper mb-3">
+                    <ul class="nav nav-tabs" id="analyzer-tabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="md5-tab" data-bs-toggle="tab" data-bs-target="#md5-analysis" type="button" role="tab" aria-controls="md5-analysis" aria-selected="true">
+                                <i class="fas fa-fingerprint me-2"></i>Phân tích MD5
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="hash-tab" data-bs-toggle="tab" data-bs-target="#hash-analysis" type="button" role="tab" aria-controls="hash-analysis" aria-selected="false">
+                                <i class="fas fa-hashtag me-2"></i>Phân tích mã #
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab" aria-controls="history" aria-selected="false">
+                                <i class="fas fa-history me-2"></i>Lịch sử
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                                <i class="fas fa-envelope me-2"></i>Liên hệ
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="tab-content" id="analyzer-tabs-content">
+                    <!-- MD5 Tab -->
+                    <div class="tab-pane fade show active" id="md5-analysis" role="tabpanel" aria-labelledby="md5-tab">
+                        <div class="mb-3">
+                            <label for="md5-input" class="form-label">Nhập mã MD5 (32 ký tự):</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="md5-input" placeholder="Ví dụ: 1a79a4d60de6718e8e5b326e338ae533">
+                                <button class="btn btn-primary" type="button" id="analyze-md5-btn">
+                                    <i class="fas fa-search me-1"></i>Phân tích
+                                </button>
+                            </div>
+                            <div class="form-text">Nhập mã MD5 32 ký tự hệ thập lục phân</div>
+                        </div>
+                    </div>
+
+                    <!-- Hash Tab -->
+                    <div class="tab-pane fade" id="hash-analysis" role="tabpanel" aria-labelledby="hash-tab">
+                        <div class="mb-3">
+                            <label for="hash-input" class="form-label">Nhập mã # và số:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="hash-input" placeholder="Ví dụ: #123456">
+                                <button class="btn btn-primary" type="button" id="analyze-hash-btn">
+                                    <i class="fas fa-search me-1"></i>Phân tích
+                                </button>
+                            </div>
+                            <div class="form-text">Nhập mã bắt đầu bằng ký tự # và theo sau là số</div>
+                        </div>
+                    </div>
+
+                    <!-- History Tab -->
+                    <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4>Lịch sử phân tích</h4>
+                            <button class="btn btn-outline-danger btn-sm" id="clear-history-btn">
+                                <i class="fas fa-trash-alt me-1"></i>Xóa lịch sử
+                            </button>
+                        </div>
+                        <div id="history-container" class="history-list">
+                            <div class="text-center text-muted py-5" id="empty-history-message">
+                                <i class="fas fa-history fa-3x mb-3"></i>
+                                <p>Chưa có lịch sử phân tích nào.</p>
+                            </div>
+                            <div id="history-items"></div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Tab -->
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="contact-section">
+                            <h4 class="mb-4 text-center">Thông tin liên hệ</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="contact-item">
+                                        <div class="contact-icon">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="mb-1">Email</h5>
+                                            <p class="mb-0">leduydong1805@gmail.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="contact-item">
+                                        <div class="contact-icon">
+                                            <i class="fas fa-phone-alt"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="mb-1">Điện thoại</h5>
+                                            <p class="mb-0">0876389369</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="contact-item">
+                                        <div class="contact-icon">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="mb-1">Facebook</h5>
+                                            <p class="mb-0">Lê Duy Đông</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="contact-item">
+                                        <div class="contact-icon">
+                                            <i class="fab fa-telegram-plane"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="mb-1">Telegram</h5>
+                                            <p class="mb-0">@leduydong</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Section -->
+                <div id="result-section" class="mt-4 d-none">
+                    <h4 class="mb-3">Kết quả phân tích</h4>
+                    <div class="result-card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <div class="code-display p-3 mb-3 rounded border">
+                                        <h5 class="mb-2">Mã đã phân tích:</h5>
+                                        <div id="result-code-display" class="d-flex align-items-center">
+                                            <span id="result-code-badge" class="badge bg-secondary me-2"></span>
+                                            <span id="result-code" class="fw-bold fs-5 code-text"></span>
+                                            <button id="copy-code-btn" class="btn btn-sm btn-outline-secondary ms-2" title="Sao chép mã">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                        <p class="card-text text-muted mt-2" id="result-type"></p>
+                                    </div>
+                                    <h2 class="mb-3" id="result-value">
+                                        <span class="badge"></span>
+                                    </h2>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <h5 class="mb-2">Tỷ lệ Tài</h5>
+                                        <div class="progress-container">
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-tai" 
+                                                     id="progress-tai" 
+                                                     role="progressbar" 
+                                                     style="width: 0%"
+                                                     aria-valuenow="0" 
+                                                     aria-valuemin="0" 
+                                                     aria-valuemax="100">0%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <h5 class="mb-2">Tỷ lệ Xỉu</h5>
+                                        <div class="progress-container">
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-xiu" 
+                                                     id="progress-xiu" 
+                                                     role="progressbar" 
+                                                     style="width: 0%"
+                                                     aria-valuenow="0" 
+                                                     aria-valuemin="0" 
+                                                     aria-valuemax="100">0%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enhanced Loading Spinner -->
+                <div id="loading-indicator" class="loading-container my-4 d-none">
+                    <div class="position-relative">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Đang phân tích...</span>
+                        </div>
+                        <div class="spinner-overlay">
+                            <i class="fas fa-dice-d20 fa-spin"></i>
+                        </div>
+                    </div>
+                    <p class="mt-3">Đang phân tích...</p>
+                </div>
+            </div>
+
+            <div class="card-footer text-center text-muted">
+                <p class="mb-0">© Tool Lê Duy Đông 2025 Phân Tích Tài Xỉu - Công cụ phân tích mã MD5 và mã #</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- MD5 Hash Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Khởi tạo các phần tử DOM
+            const md5Input = document.getElementById('md5-input');
+            const hashInput = document.getElementById('hash-input');
+            const analyzeMd5Btn = document.getElementById('analyze-md5-btn');
+            const analyzeHashBtn = document.getElementById('analyze-hash-btn');
+            const clearHistoryBtn = document.getElementById('clear-history-btn');
+            const resultSection = document.getElementById('result-section');
+            const resultCode = document.getElementById('result-code');
+            const resultType = document.getElementById('result-type');
+            const resultValue = document.getElementById('result-value').querySelector('.badge');
+            const progressTai = document.getElementById('progress-tai');
+            const progressXiu = document.getElementById('progress-xiu');
+            const loadingIndicator = document.getElementById('loading-indicator');
+            const historyItems = document.getElementById('history-items');
+            const emptyHistoryMessage = document.getElementById('empty-history-message');
+            
+            // Hiệu ứng bounce cho icon
+            setInterval(() => {
+                document.querySelector('.card-header i').classList.add('animate__bounce');
+                setTimeout(() => {
+                    document.querySelector('.card-header i').classList.remove('animate__bounce');
+                }, 1000);
+            }, 3000);
+            
+            // Tải lịch sử từ localStorage
+            loadHistory();
+            
+            // Sự kiện khi nhấn phím Enter trong input
+            md5Input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    analyzeMd5Btn.click();
+                }
+            });
+            
+            hashInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    analyzeHashBtn.click();
+                }
+            });
+            
+            // Xử lý phân tích mã MD5
+            analyzeMd5Btn.addEventListener('click', function() {
+                const md5Code = md5Input.value.trim();
+                if (!md5Code) {
+                    showToast('Vui lòng nhập mã MD5', 'warning');
+                    return;
+                }
+                
+                if (!/^[a-fA-F0-9]{32}$/.test(md5Code)) {
+                    showToast('Mã MD5 không hợp lệ. Vui lòng nhập mã MD5 32 ký tự hệ thập lục phân.', 'danger');
+                    return;
+                }
+                
+                // Giả lập loading với hiệu ứng
+                showLoading();
+                
+                // Sử dụng setTimeout để giả lập thời gian xử lý
+                setTimeout(() => {
+                    // Phân tích MD5
+                    const result = analyzeMd5Code(md5Code);
+                    
+                    // Hiển thị kết quả
+                    displayResult(result);
+                    
+                    // Lưu vào lịch sử
+                    saveToHistory(result);
+                    
+                    // Ẩn loading
+                    hideLoading();
+                }, 1000);
+            });
+            
+            // Xử lý phân tích mã #
+            analyzeHashBtn.addEventListener('click', function() {
+                const hashCode = hashInput.value.trim();
+                if (!hashCode) {
+                    showToast('Vui lòng nhập mã #', 'warning');
+                    return;
+                }
+                
+                if (!hashCode.startsWith('#')) {
+                    showToast('Mã hash phải bắt đầu bằng ký tự #', 'danger');
+                    return;
+                }
+                
+                const numberPart = hashCode.substring(1);
+                if (!/^\d+$/.test(numberPart)) {
+                    showToast('Phần sau ký tự # phải là số', 'danger');
+                    return;
+                }
+                
+                // Giả lập loading với hiệu ứng
+                showLoading();
+                
+                // Sử dụng setTimeout để giả lập thời gian xử lý
+                setTimeout(() => {
+                    // Phân tích mã #
+                    const result = analyzeHashCode(hashCode);
+                    
+                    // Hiển thị kết quả
+                    displayResult(result);
+                    
+                    // Lưu vào lịch sử
+                    saveToHistory(result);
+                    
+                    // Ẩn loading
+                    hideLoading();
+                }, 1000);
+            });
+            
+            // Xóa lịch sử
+            clearHistoryBtn.addEventListener('click', function() {
+                if (confirm('Bạn có chắc chắn muốn xóa toàn bộ lịch sử?')) {
+                    localStorage.removeItem('analyzeHistory');
+                    historyItems.innerHTML = '';
+                    emptyHistoryMessage.classList.remove('d-none');
+                    showToast('Đã xóa lịch sử phân tích', 'success');
+                }
+            });
+            
+            // Hàm phân tích mã MD5
+            function analyzeMd5Code(md5Hash) {
+                // Chuyển MD5 thành dãy bit
+                const numericValue = parseInt(md5Hash.substring(0, 8), 16);
+                
+                // Sử dụng 2 chữ số cuối của mã MD5 để xác định kết quả
+                const lastTwoDigits = numericValue % 100;
+                
+                // Tài: 50-99, Xỉu: 0-49
+                const isTai = lastTwoDigits >= 50;
+                
+                // Tính phần trăm
+                let percentageTai, percentageXiu;
+                
+                if (isTai) {
+                    // Nếu là tài, tính tỷ lệ trong khoảng 50-99
+                    percentageTai = ((lastTwoDigits - 50) / 49) * 100;
+                    percentageXiu = 100 - percentageTai;
+                } else {
+                    // Nếu là xỉu, tính tỷ lệ trong khoảng 0-49
+                    percentageXiu = (lastTwoDigits / 49) * 100;
+                    percentageTai = 100 - percentageXiu;
+                }
+                
+                return {
+                    code: md5Hash,
+                    result: isTai ? 'Tài' : 'Xỉu',
+                    percentageTai: Math.round(percentageTai),
+                    percentageXiu: Math.round(percentageXiu),
+                    type: 'md5'
+                };
+            }
+            
+            // Hàm phân tích mã #
+            function analyzeHashCode(hashCode) {
+                // Lấy số sau ký tự #
+                const number = parseInt(hashCode.substring(1));
+                
+                // Sử dụng số này để tính toán kết quả tài xỉu
+                // Lấy 2 chữ số cuối của số để tính toán
+                const lastTwoDigits = number % 100;
+                
+                // Tài: 50-99, Xỉu: 0-49
+                const isTai = lastTwoDigits >= 50;
+                
+                // Tính phần trăm
+                let percentageTai, percentageXiu;
+                
+                if (isTai) {
+                    // Nếu là tài, tính tỷ lệ trong khoảng 50-99
+                    percentageTai = ((lastTwoDigits - 50) / 49) * 100;
+                    percentageXiu = 100 - percentageTai;
+                } else {
+                    // Nếu là xỉu, tính tỷ lệ trong khoảng 0-49
+                    percentageXiu = (lastTwoDigits / 49) * 100;
+                    percentageTai = 100 - percentageXiu;
+                }
+                
+                return {
+                    code: hashCode,
+                    result: isTai ? 'Tài' : 'Xỉu',
+                    percentageTai: Math.round(percentageTai),
+                    percentageXiu: Math.round(percentageXiu),
+                    type: 'hash'
+                };
+            }
+            
+            // Hiển thị loading với hiệu ứng
+            function showLoading() {
+                loadingIndicator.classList.remove('d-none');
+                resultSection.classList.add('d-none');
+            }
+            
+            // Ẩn loading và hiển thị kết quả với hiệu ứng
+            function hideLoading() {
+                loadingIndicator.classList.add('d-none');
+                resultSection.classList.remove('d-none');
+                resultSection.classList.add('analyzing');
+                setTimeout(() => {
+                    resultSection.classList.remove('analyzing');
+                }, 1000);
+            }
+            
+            // Hiển thị kết quả phân tích với hiệu ứng
+            function displayResult(result) {
+                // Hiển thị mã chi tiết
+                const resultCodeBadge = document.getElementById('result-code-badge');
+                resultCodeBadge.textContent = result.type === 'md5' ? 'MD5' : '#';
+                resultCodeBadge.className = `badge ${result.type === 'md5' ? 'bg-primary' : 'bg-info'} me-2`;
+                
+                resultCode.textContent = result.code;
+                resultType.textContent = result.type === 'md5' ? 'Phân tích từ mã MD5 32 ký tự' : 'Phân tích từ mã # và số';
+                
+                // Hiển thị kết quả Tài/Xỉu với hiệu ứng
+                resultValue.textContent = result.result;
+                resultValue.className = result.result === 'Tài' ? 'badge bg-success' : 'badge bg-danger';
+                
+                // Reset trước khi animate
+                progressTai.style.width = '0%';
+                progressXiu.style.width = '0%';
+                progressTai.textContent = '0%';
+                progressXiu.textContent = '0%';
+                
+                // Delay nhỏ để hiệu ứng mượt hơn
+                setTimeout(() => {
+                    // Hiển thị tỷ lệ phần trăm với hiệu ứng
+                    progressTai.style.width = `${result.percentageTai}%`;
+                    progressTai.textContent = `${result.percentageTai}%`;
+                    progressTai.setAttribute('aria-valuenow', result.percentageTai);
+                    
+                    progressXiu.style.width = `${result.percentageXiu}%`;
+                    progressXiu.textContent = `${result.percentageXiu}%`;
+                    progressXiu.setAttribute('aria-valuenow', result.percentageXiu);
+                }, 100);
+                
+                // Xử lý nút sao chép mã
+                const copyCodeBtn = document.getElementById('copy-code-btn');
+                copyCodeBtn.addEventListener('click', function() {
+                    navigator.clipboard.writeText(result.code).then(() => {
+                        showToast('Đã sao chép mã vào clipboard', 'success');
+                    }).catch(err => {
+                        showToast('Không thể sao chép mã: ' + err, 'danger');
+                    });
+                });
+            }
+            
+            // Lưu kết quả vào lịch sử
+            function saveToHistory(result) {
+                // Lấy lịch sử hiện tại
+                let history = JSON.parse(localStorage.getItem('analyzeHistory') || '[]');
+                
+                // Thêm kết quả mới vào đầu mảng
+                const newItem = {
+                    ...result,
+                    timestamp: new Date().toISOString()
+                };
+                
+                history.unshift(newItem);
+                
+                // Giới hạn lịch sử lưu trữ (50 mục)
+                if (history.length > 50) {
+                    history = history.slice(0, 50);
+                }
+                
+                // Lưu lại vào localStorage
+                localStorage.setItem('analyzeHistory', JSON.stringify(history));
+                
+                // Cập nhật UI
+                loadHistory();
+            }
+            
+            // Tải lịch sử từ localStorage với hiệu ứng
+            function loadHistory() {
+                const history = JSON.parse(localStorage.getItem('analyzeHistory') || '[]');
+                historyItems.innerHTML = '';
+                
+                if (history.length === 0) {
+                    emptyHistoryMessage.classList.remove('d-none');
+                    return;
+                }
+                
+                emptyHistoryMessage.classList.add('d-none');
+                
+                // Hiển thị các mục trong lịch sử với hiệu ứng
+                history.forEach((item, index) => {
+                    const timestamp = new Date(item.timestamp);
+                    const formattedTime = timestamp.toLocaleString('vi-VN');
+                    
+                    const historyItem = document.createElement('div');
+                    historyItem.className = `history-item ${item.result === 'Tài' ? 'tai' : 'xiu'}`;
+                    // Thêm delay để tạo hiệu ứng cascade
+                    historyItem.style.animationDelay = `${index * 0.05}s`;
+                    historyItem.innerHTML = `
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">${item.code}</h5>
+                            <small>${formattedTime}</small>
+                        </div>
+                        <p class="mb-1">
+                            <span class="badge ${item.result === 'Tài' ? 'bg-success' : 'bg-danger'}">${item.result}</span>
+                            <span class="ms-2">Tỷ lệ Tài: ${item.percentageTai}% | Tỷ lệ Xỉu: ${item.percentageXiu}%</span>
+                        </p>
+                        <small>Loại: ${item.type === 'md5' ? 'MD5' : 'Mã #'}</small>
+                    `;
+                    
+                    // Thêm sự kiện khi click vào mục lịch sử
+                    historyItem.addEventListener('click', function() {
+                        displayResult(item);
+                        resultSection.classList.remove('d-none');
+                        // Cuộn đến phần kết quả
+                        resultSection.scrollIntoView({ behavior: 'smooth' });
+                    });
+                    
+                    historyItems.appendChild(historyItem);
+                });
+            }
+            
+            // Hiển thị thông báo toast với hiệu ứng
+            function showToast(message, type = 'info') {
+                // Tạo toast container nếu chưa có
+                let toastContainer = document.querySelector('.toast-container');
+                if (!toastContainer) {
+                    toastContainer = document.createElement('div');
+                    toastContainer.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+                    document.body.appendChild(toastContainer);
+                }
+                
+                // Tạo toast với hiệu ứng
+                const toastId = 'toast-' + Date.now();
+                const toast = document.createElement('div');
+                toast.className = `toast align-items-center text-white bg-${type} border-0`;
+                toast.id = toastId;
+                toast.setAttribute('role', 'alert');
+                toast.setAttribute('aria-live', 'assertive');
+                toast.setAttribute('aria-atomic', 'true');
+                
+                toast.innerHTML = `
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'warning' ? 'fa-exclamation-triangle' : type === 'danger' ? 'fa-times-circle' : 'fa-info-circle'} me-2"></i>
+                            ${message}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                `;
+                
+                toastContainer.appendChild(toast);
+                
+                // Hiển thị toast với hiệu ứng
+                const bsToast = new bootstrap.Toast(toast, {
+                    autohide: true,
+                    delay: 3000
+                });
+                bsToast.show();
+                
+                // Xóa toast sau khi ẩn
+                toast.addEventListener('hidden.bs.toast', function() {
+                    toast.remove();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
